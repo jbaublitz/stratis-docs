@@ -34,6 +34,7 @@ website-test: website-distrib
 
 yamllint:
 	yamllint --strict .github/workflows/*.yml
+	yamllint --strict .yamllint.yaml
 
 check:
 	(cd ./docs/design ; $(MAKE) check)
@@ -49,6 +50,9 @@ clean:
 
 check-typos:
 	typos
+
+fix-typos:
+	typos -w
 
 WEBSITE_REPO ?=
 test-website-repo:
@@ -73,7 +77,9 @@ fmt-ci:
 
 .PHONY:
 	check
+	check-typos
 	clean
+	fix-typos
 	fmt
 	fmt-ci
 	pdfs
